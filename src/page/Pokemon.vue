@@ -1,21 +1,20 @@
 !<template>
-<h1>Adivina el Pokemon de la Imagen</h1>
+  <h1>Adivina el Pokemon de la Imagen</h1>
 
-<PokemonImagen/>
-<PokemonOpciones/>
-  
+  <PokemonImagen :pokemonId="25" :mostrarPokemon="false"/>
+  <PokemonOpciones/>
+
 </template>
 
 <script>
-import PokemonImagen from '../components/PokemonImagen.vue';
-import PokemonOpciones from '../components/PokemonOpciones.vue';
+import PokemonImagen from "../components/PokemonImagen.vue";
+import PokemonOpciones from "@/components/PokemonOpciones.vue";
 export default {
-    methods:{
-        PokemonImagen,
-        PokemonOpciones
-    }
-
-}
+  components: {
+    PokemonImagen,
+    PokemonOpciones,
+  },
+};
 </script>
 
 <style>

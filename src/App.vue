@@ -7,7 +7,7 @@
 <script>
 import Pokemon from './page/Pokemon.vue';
 export default {
-  name: 'App',
+  
   components: {
     Pokemon
   }
@@ -15,5 +15,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
