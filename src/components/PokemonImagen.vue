@@ -1,7 +1,7 @@
 <template>
-  <div class="pokemon-container">
-    <img  v-show="!mostrarPokemon" :src="imagenFuente" alt="No se pudo cargar" class="ocultar" />
-    <img v-show="mostrarPokemon" :src="imagenFuente" alt="No se pudo cargar" />
+  <div class="pokemonContainer">
+    <img v-show="!mostrarPokemon" class="ocultar" :src="imagenPuente" alt="No se pudo carfar">
+    <img v-show="mostrarPokemon" :src="imagenPuente" alt="No se pudo carfar">
   </div>
 </template>
 
@@ -10,36 +10,45 @@ export default {
   props: {
     pokemonId: {
       type: Number,
-      required: true,
+      required: true
     },
-    mostrarPokemon: {
+    mostrarPokemon:{
       type: Boolean,
-      required: true,
-    },
+      default: true
+    }
   },
   computed: {
-    imagenFuente() {//es una propiedad y no metodo
-      /*return (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/" +
-        this.pokemonId +
-        ".svg"
-      );*/
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.pokemonId}.svg`; 
-    },
+    imagenPuente() {
+     // return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/" + this.pokemonId + ".svg";
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.pokemonId}.svg`; // AQUI VA CODIGO JAVASCRIPT 
+    }
   },
-};
+  methods: {
+    metodoPrueba() {
+      console.log('se ejecuto el metodo prueba desde el padre');
+    }
+  },
+  data() {
+    return {
+      propiedadPrueba: 'este texto es prueba'
+    }
+  }
+
+}
 </script>
 
 <style>
 .ocultar {
-  filter: brightness(0); /*Configuramos el brillo*/
+  filter: brightness(0);
 }
+
 img {
   height: 200px;
-  position: absolute; /*Configurar la posición*/
+  position: absolute;
   right: 38%;
 }
-.pokemon-container {
+
+.pokemonContainer {
   height: 200px;
 }
 </style>

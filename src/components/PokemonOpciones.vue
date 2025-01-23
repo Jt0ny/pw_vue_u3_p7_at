@@ -1,9 +1,7 @@
 <template>
-  <div class="opciones-contenedor">
+  <div class="contenedorOpciones">
     <ul>
-      <li @click="seleccionado" v-for="pokemon in pokemons" :key="pokemon.id">
-        {{ pokemon.nombre }}
-      </li>
+      <li @click="seleccionado(pokemon.id)" v-for="pokemon in pokemons" :key="pokemon.id">{{ pokemon.nombre }}</li>
     </ul>
   </div>
 </template>
@@ -12,36 +10,46 @@
 export default {
   props: {
     pokemons: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
   methods: {
-    seleccionado() {
-      console.log("Hizo click");
+    seleccionado(id) {
+      console.log('hizo click');
+      console.log(id);  
+      const objetoEnviado= {
+        identificador: id,
+        valor2: true,
+        valor3: 'Ejemplo3'
+      }
+      this.$emit('seleccion', objetoEnviado); // emitir un evento, en el segundo parametro se puede enviar un valor
     },
   },
-};
-
+}
 </script>
 
 <style>
 ul {
-  list-style: none; /*Quitar los puntos de la lista*/
+  list-style-type: none;
 }
-li{
-  background-color: white;
-  width: 250px;
-  border:  1px solid;
+
+li {
+  background: white;
+  width: 350px;
+  border: 1px solid;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-bottom: 10px;
   cursor: pointer;
+  text-align: center ;
 }
-li:hover{
-  background-color: rgb(0, 0, 0,0.05);
+
+li:hover {
+  background: rgb(0, 0, 0, 0.05);
 }
-.opciones-contenedor {
+
+.contenedorOpciones {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 </style>
