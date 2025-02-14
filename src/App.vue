@@ -1,15 +1,15 @@
 <template>
 
-<PokemonPage/>
+<PersonaPage/>
   
 </template>
 
 <script>
-import PokemonPage from './page/PokemonPage.vue';
+import PersonaPage from './page/PersonaPage.vue';
 export default {
   
   components: {
-    PokemonPage
+    PersonaPage
   }
 }
 </script>
