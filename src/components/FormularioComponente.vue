@@ -1,48 +1,92 @@
 !<template>
   <div class="container">
     <h1>Formulario Persona</h1>
+
     <div class="formulario">
-      <p type="Nombre:"><input type="text"  v-model="nombre"/></p>
-      <p type="Apellido:"><input type="text" v-model="apellido"/></p>
-      <p type="Fecha Nacimiento:"><input type="datetime-local" v-model="fechaNacimiento" /></p>
+      <p type="ID:"><input type="text" v-model="datos.id" /></p>
+      <p type="Nombre:"><input type="text" v-model="datos.nombre" /></p>
+      <p type="Apellido:"><input type="text" v-model="datos.apellido" /></p>
+      <p type="Fecha Nacimiento:">
+        <input type="text" v-model="datos.fechaNacimiento" />
+      </p>
+      <button v-on:click="buscar">buscar</button>
+      <button v-on:click="guardar">guardar</button>
+      <button class="actualizar" v-on:click="actualizar">Actualizar</button>
+      <button class="actualizar-parcial" v-on:click="actualizarParcial">Actualizar Parcial</button>
+      <button class="eliminar" v-on:click="eliminar">Eliminar</button>
     </div>
-    <button @click="buscar" >buscar</button>
-    <button @click="guardar" >guardar</button>
   </div>
 </template>
 
 <script>
-import {obtenerPorIdFachada,insertarFachada} from '@/client/PersonaCliente.js';
- 
+import {
+  obtenerPorIdFachada,
+  insertarFachada,
+  actualizarFachada,
+  actualizarParcialFachada,
+  eliminarFachada
+} from "@/client/PersonaCliente";
+
 export default {
   data() {
     return {
-      idPersona: null,
-      nombre: null,
-      apellido: null,
-      fechaNacimiento: null
+      
+      datos: {
+        id: "",
+        nombre: "",
+        apellido: "",
+        fechaNacimiento: "",
+      },
     };
   },
   mounted() {
     console.log("Antes de llamar al API");
     obtenerPorIdFachada(5);
   },
- 
+
   methods: {
-   async buscar() {
-      const data=await obtenerPorIdFachada(this.idPersona);
-      this.nombre=data.nombre;
-      this.apellido=data.apellido;
-      this.fechaNacimiento=data.fechaNacimiento;
+    async buscar() {
+      console.log("buscar");
+      
+     
+      const data = await obtenerPorIdFachada(this.datos.id);
+      this.datos.nombre = data.nombre;
+      this.datos.apellido = data.apellido;
+      this.datos.fechaNacimiento = data.fechaNacimiento;
     },
-     async guardar(){
-      const bodyPersona={
-        nombre:this.nombre,
-        apellido:this.apellido,
-      }
+    async guardar() {
+      console.log("Guardar");
+      const bodyPersona = {
+        nombre: this.datos.nombre,
+        apellido: this.datos.apellido,
+        fechaNacimiento: this.datos.fechaNacimiento,
+      };
       await insertarFachada(bodyPersona);
-    }
-  }
+    },
+     async actualizar() {
+      console.log("Actualizar");
+      const bodyPersona = {
+        id: this.datos.id,
+        nombre: this.datos.nombre,
+        apellido: this.datos.apellido,
+        fechaNacimiento: this.datos.fechaNacimiento,
+      };
+      await actualizarFachada(this.datos.id, bodyPersona);
+    },
+    async actualizarParcial() {
+      console.log("ActualizarParcial");
+      const bodyPersona = {
+        nombre: this.datos.nombre,
+        apellido: this.datos.apellido,
+        fechaNacimiento: this.datos.fechaNacimiento,
+      };
+      await actualizarParcialFachada(this.datos.id, bodyPersona);
+    },
+    async eliminar() {
+      console.log("Eliminar ");
+      await eliminarFachada(this.datos.id);
+    },
+  },
 };
 </script>
 
@@ -72,6 +116,5 @@ button {
 }
 h1 {
   text-align: center;
-  
 }
 </style>
